@@ -1,0 +1,20 @@
+{
+    "proposed_updates_branch": "opu",
+    "base_sha": "b33ef8f0d929b0b42f852d153754831429a9bfec",
+    "build_tag": "/build/opu/2014-01-23_17.46",
+    "topic_branches": [
+        {
+            "sha": "2fb9880e337230f80968c0f89ff8546eec4c6478",
+            "branch": "ia/ssl/secure-renegotiate/OTP-11595",
+            "ticket": "OTP-11595",
+            "commits": [
+                {
+                    "sha": "2fb9880e337230f80968c0f89ff8546eec4c6478",
+                    "author": "ingela@erlang.org",
+                    "committer": "ingela@erlang.org",
+                    "subject": "ssl: Incorrect inputed cipherlist lead server to think that the client did not support secure renegotiation"
+                }
+            ]
+        }
+    ]
+}
