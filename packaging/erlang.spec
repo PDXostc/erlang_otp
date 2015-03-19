@@ -14,9 +14,9 @@ Summary:  General-purpose concurrent, garbage-collected programming language and
 Group:    Development/Languages
 License:  ERPL
 URL:      http://www.erlang.org
-Source0:  http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
-Source1:  http://www.erlang.org/download/otp_doc_html_R16B03-1.tar.gz
-Source2:  http://www.erlang.org/download/otp_doc_man_R16B03-1.tar.gz
+Source0:  http://www.erlang.org/download/erlang_R16B03-1.tar.gz
+# Source1:  http://www.erlang.org/download/otp_doc_html_R16B03-1.tar.gz
+#Source2:  http://www.erlang.org/download/otp_doc_man_R16B03-1.tar.gz
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
@@ -93,17 +93,17 @@ This is a monolithic package that installs the whole Erlang install.
 Deal with it.
 
 %prep
-%setup -q -n otp_src_R16B03-1
+%setup -q -n erlang_R16B03-1
 
 # Fix RPATH issue... too lazy to maintain a patch... if stuff breaks, look here.
-sed -i -e 's|SSL_DED_LD_RUNTIME_LIBRARY_PATH = @SSL_DED_LD_RUNTIME_LIBRARY_PATH@|SSL_DED_LD_RUNTIME_LIBRARY_PATH =|' %_builddir/otp_src_R16B03-1/lib/crypto/c_src/Makefile.in
-sed -i -e 's|$(SO_LD) $(SO_LDFLAGS) -L$(SO_SSL_LIBDIR) -Wl,-R$(SO_SSL_LIBDIR) |$(SO_LD) $(SO_LDFLAGS) -L$(SO_SSL_LIBDIR) |' %_builddir/otp_src_R16B03-1/lib/crypto/priv/Makefile
+sed -i -e 's|SSL_DED_LD_RUNTIME_LIBRARY_PATH = @SSL_DED_LD_RUNTIME_LIBRARY_PATH@|SSL_DED_LD_RUNTIME_LIBRARY_PATH =|' %_builddir/erlang_R16B03-1/lib/crypto/c_src/Makefile.in
+sed -i -e 's|$(SO_LD) $(SO_LDFLAGS) -L$(SO_SSL_LIBDIR) -Wl,-R$(SO_SSL_LIBDIR) |$(SO_LD) $(SO_LDFLAGS) -L$(SO_SSL_LIBDIR) |' %_builddir/erlang_R16B03-1/lib/crypto/priv/Makefile
 
 %build
 # CentOS 6.5 disables EC GF2m curves.
 FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DOPENSSL_NO_EC=1"
 
-%configure --enable-shared-zlib --prefix=/usr 
+%configure --enable-m32-build --enable-shared-zlib --prefix=/usr 
 
 make %{?_smp_mflags}
 
@@ -111,8 +111,8 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 # Drop docs
-tar -xf %_sourcedir/otp_doc_man_R16B03-1.tar.gz -C %{buildroot}//usr/%{_lib}/erlang/
-tar -xf %_sourcedir/otp_doc_html_R16B03-1.tar.gz -C %{buildroot}//usr/%{_lib}/erlang/
+# tar -xf %_sourcedir/otp_doc_man_R16B03-1.tar.gz -C %{buildroot}//usr/%{_lib}/erlang/
+# tar -xf %_sourcedir/otp_doc_html_R16B03-1.tar.gz -C %{buildroot}//usr/%{_lib}/erlang/
 
 %clean
 rm -rf %{buildroot}
