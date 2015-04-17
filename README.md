@@ -1,3 +1,19 @@
+# TIZEN GBS / OBS BUILD
+
+## Setting up GBS 
+The GBS build system can be setup as described
+[here](https://source.tizen.org/documentation/reference/git-build-system).
+
+## Building Erlang Tizen RPM:
+
+    gbs build -A i586
+
+An RPM file will be generated at the end of the build which can be
+installed on a Tizen box. The RPM can be found at:
+
+    ~/GBS-ROOT/local/repos/tizen/i586/RPMS/erlang-R16B03_1-1.i686.rpm
+
+
 Erlang/OTP
 ==========
 
